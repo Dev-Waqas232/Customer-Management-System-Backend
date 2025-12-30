@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { ZodError } from "zod";
+import { ApiResponse } from "../utils/api-response";
 
 export class AppError extends Error {
   statusCode: number;
@@ -14,16 +15,12 @@ export class AppError extends Error {
 
 export function errorHandler(err: unknown, req: Request, res: Response) {
   if (err instanceof ZodError) {
-    return res.status(400).json({ message: err.message });
+    return ApiResponse.error(res, err.message, 400);
   }
 
   if (err instanceof AppError) {
-    return res.status(err.statusCode).json({
-      message: err.message,
-    });
+    return ApiResponse.error(res, err.message, err.statusCode);
   }
 
-  return res.status(500).json({
-    message: "Something went wrong",
-  });
+  return ApiResponse.error(res, "Something went wrong", 500);
 }

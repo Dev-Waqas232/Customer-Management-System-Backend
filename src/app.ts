@@ -1,8 +1,10 @@
-import express, { Request, Response, type Express } from "express";
+import express, { type Request, type Response, type Express } from "express";
 import { config } from "dotenv";
 import cors from "cors";
+
 import { ApiResponse } from "./utils/api-response";
 import { connectDB } from "./config/db";
+import { errorHandler } from "./middlewares/error-handler";
 
 config();
 connectDB();
@@ -10,6 +12,8 @@ connectDB();
 const app: Express = express();
 
 app.use(cors());
+
+app.use(errorHandler);
 
 app.use("/health", (req: Request, res: Response) => {
   return ApiResponse.success(res, null, "Hello from Server");

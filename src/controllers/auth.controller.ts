@@ -1,10 +1,10 @@
 import { type NextFunction, type Request, type Response } from "express";
-import { AppError } from "../middlewares/error-handler";
+import { AuthService } from "../services/auth.service";
 
 export class AuthController {
   static register(req: Request, res: Response, next: NextFunction) {
     try {
-      throw new AppError("Testing middleware");
+      const user = AuthService.register();
     } catch (error) {
       next(error);
     }

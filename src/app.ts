@@ -5,6 +5,7 @@ import cors from "cors";
 import { ApiResponse } from "./utils/api-response";
 import { connectDB } from "./config/db";
 import { errorHandler } from "./middlewares/error-handler";
+import { authRoute } from "./routes/auth.routes";
 
 config();
 connectDB();
@@ -12,6 +13,8 @@ connectDB();
 const app: Express = express();
 
 app.use(cors());
+
+app.use(authRoute);
 
 app.use(errorHandler);
 

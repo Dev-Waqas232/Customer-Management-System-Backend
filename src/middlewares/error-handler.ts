@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
 import { ApiResponse } from "../utils/api-response";
 
@@ -13,7 +13,13 @@ export class AppError extends Error {
   }
 }
 
-export function errorHandler(err: unknown, req: Request, res: Response) {
+// Need all 4 parameters otherwise express won't recognize it as error handler middleware
+export function errorHandler(
+  err: unknown,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   if (err instanceof ZodError) {
     return ApiResponse.error(res, err.message, 400);
   }

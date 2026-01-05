@@ -1,4 +1,6 @@
+import { InferSchemaType } from "mongoose";
 import { Customer } from "../models/customer.model";
+import { AppError } from "../middlewares/error-handler";
 
 export class CustomerService {
   static async getCustomers() {
@@ -18,5 +20,23 @@ export class CustomerService {
     );
 
     return await Customer.find();
+  }
+
+  static async createCustomer(data: any) {
+    const customer = await Customer.findOne({
+      phone_number: data.phone_number,
+    });
+
+    if (customer)
+      throw new AppError("Customer with this phone number already exists", 409);
+
+    const newCustomer = new Customer({
+      ...data,
+      first_billing_date: data.first_billing_date,
+      last_payment_date:
+        data?.last_payment_date && new Date(data.last_payment_date),
+    });
+
+    return await newCustomer.save();
   }
 }

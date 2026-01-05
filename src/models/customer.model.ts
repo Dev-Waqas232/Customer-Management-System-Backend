@@ -18,9 +18,10 @@ const CustomerSchema = new Schema(
     payment_status: {
       type: String,
       enum: ["pending", "done"],
+      required: true,
     },
     payment: {
-      type: String,
+      type: Number,
       required: true,
     },
     first_billing_date: {

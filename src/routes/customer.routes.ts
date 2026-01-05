@@ -8,4 +8,6 @@ router.use(authenticate);
 
 router.get("/", CustomerController.getCustomers);
 
+router.post("/", CustomerController.createCustomer);
+
 export { router as customerRoute };

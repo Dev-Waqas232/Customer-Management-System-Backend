@@ -28,5 +28,6 @@ export function errorHandler(
     return ApiResponse.error(res, err.message, err.statusCode);
   }
 
+  console.log(err);
   return ApiResponse.error(res, "Something went wrong", 500);
 }

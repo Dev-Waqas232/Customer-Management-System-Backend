@@ -6,7 +6,16 @@ export class CustomerController {
   static async getCustomers(req: Request, res: Response, next: NextFunction) {
     try {
       const customer = await CustomerService.getCustomers();
-      return ApiResponse.success(res, customer, "Customer Fetched");
+      return ApiResponse.success(res, customer, "Customer Fetched!");
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async createCustomer(req: Request, res: Response, next: NextFunction) {
+    try {
+      const customer = await CustomerService.createCustomer(req.body);
+      return ApiResponse.created(res, customer, "Customer Created!");
     } catch (error) {
       next(error);
     }

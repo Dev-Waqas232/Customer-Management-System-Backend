@@ -6,6 +6,7 @@ import { ApiResponse } from "./utils/api-response";
 import { connectDB } from "./config/db";
 import { errorHandler } from "./middlewares/error-handler";
 import { authRoute } from "./routes/auth.routes";
+import { customerRoute } from "./routes/customer.routes";
 
 config();
 connectDB();
@@ -16,6 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRoute);
+app.use("/api/customers", customerRoute);
 
 app.use(errorHandler);
 

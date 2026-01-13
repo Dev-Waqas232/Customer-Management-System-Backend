@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { AppError } from "./error-handler";
 import { decodeToken } from "../utils/jwt";
 import { AuthJwtPayload, AuthRequest } from "../types";
-import { Admin } from "../models/admin.model";
+// import { Admin } from "../models/admin.model";
 
 export async function authenticate(
   req: AuthRequest,
@@ -18,10 +18,10 @@ export async function authenticate(
     const decode: AuthJwtPayload = decodeToken(token);
     const userId = decode.id;
 
-    const user = await Admin.findById(userId);
-    if (!user) throw new AppError("Invalid token", 401);
+    // const user = await Admin.findById(userId);
+    // if (!user) throw new AppError("Invalid token", 401);
 
-    req.user = user;
+    // req.user = user;
     next();
   } catch (error) {
     if (error instanceof jwt.TokenExpiredError)

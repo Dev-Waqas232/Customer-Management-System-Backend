@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 
 import { AppError } from "../middlewares/error-handler";
 import { generateToken } from "../utils/jwt";
-import { AuthRequest } from "../types";
+import { Request } from "express";
 
 // TODO: Need to convert everything into prisma
 
@@ -46,7 +46,7 @@ export class AuthService {
     // return token;
   }
 
-  static async getProfile(req: AuthRequest) {
+  static async getProfile(req: Request) {
     // const id = req.user?._id;
     // const user = await Admin.findById(id).select("-password -role");
     // if (!user) throw new AppError("User doesn't found", 404);
